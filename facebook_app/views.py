@@ -5,8 +5,9 @@ from . models import Log_in
 
 # Create your views here.
 def home(request):
+    print(request.user)
     context={
-        object:None
+        "username":request.user.username
     }
     return render(request,'templates/home.html',context)
 
@@ -30,7 +31,8 @@ def login(request):
         if Log_in.objects.filter(username=username).exists():
             if Log_in.objects.filter(password=password).exists():
         
-                return render(request,'templates/home.html',context)
+                # return render(request,'templates/home.html',context)
+                return HttpResponseRedirect('/login/home/')
             else:
                 return HttpResponse("password is wrong try again")   
         else:
